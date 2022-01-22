@@ -4,13 +4,19 @@ import (
 	rand2 "crypto/rand"
 	"fmt"
 	"math/rand"
+	"os"
 	"time"
 )
+
+var correct int
+var incorrect int
+var count = 1
 
 func main() {
 	//randomNumberWithCrypto()
 	//generatingDifferentRandomNumbers
 	additionQuiz()
+	multiplicationQuiz()
 }
 
 func generatingDifferentRandomNumbers() {
@@ -36,26 +42,64 @@ func additionQuiz() {
 	firstOperand := rand.Intn(19)
 	secondOperand := rand.Intn(18)
 	var userInput int
-	correct := 0
-	incorrect := 0
+
 	answer := firstOperand + secondOperand
 
 	fmt.Printf("what is %v + %v = ", firstOperand, secondOperand)
-	fmt.Scan(&userInput)
-
-	for i := 0; i < 11; i++ {
-
-		if answer == userInput {
-			fmt.Println("Correct!!!")
-			correct++
-			additionQuiz()
-		} else {
-
-			fmt.Println("incorrect")
-			incorrect++
-			additionQuiz()
-
-		}
-
+	_, err := fmt.Scan(&userInput)
+	if err != nil {
+		return
 	}
+	if count == 10 {
+		fmt.Printf("Thank you for Taking the Quiz Your got %v right and failed %v ", correct, incorrect)
+		os.Exit(0)
+	}
+	if userInput == -1 {
+		fmt.Printf("Thank you for Taking the Quiz Your got %v right and failed %v ", correct, incorrect)
+		os.Exit(0)
+
+	} else if answer == userInput {
+		fmt.Println("Correct!!!")
+		correct = correct + 1
+		fmt.Println(count)
+	} else {
+		fmt.Println("incorrect")
+		incorrect++
+	}
+	count++
+	additionQuiz()
+
+}
+
+func multiplicationQuiz() {
+	firstOperand := rand.Intn(19)
+	secondOperand := rand.Intn(18)
+	var userInput int
+
+	answer := firstOperand * secondOperand
+
+	fmt.Printf("what is %v * %v = ", firstOperand, secondOperand)
+	_, err := fmt.Scan(&userInput)
+	if err != nil {
+		return
+	}
+	if count == 10 {
+		fmt.Printf("Thank you for Taking the Quiz Your got %v right and failed %v ", correct, incorrect)
+		os.Exit(0)
+	}
+	if userInput == -1 {
+		fmt.Printf("Thank you for Taking the Quiz Your got %v right and failed %v ", correct, incorrect)
+		os.Exit(0)
+
+	} else if answer == userInput {
+		fmt.Println("Correct!!!")
+		correct = correct + 1
+		fmt.Println(count)
+	} else {
+		fmt.Println("incorrect")
+		incorrect++
+	}
+	count++
+	additionQuiz()
+
 }
